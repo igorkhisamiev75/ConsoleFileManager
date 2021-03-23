@@ -37,21 +37,6 @@ namespace ConsoleFileManager
             int winWidth = 150;
             int winHeight = 51;
 
-            int x1 = 1;
-            int x2 = 149;
-            int y1 = 1;
-            int y2 = 49;
-
-            char symLeftTopAngle = '╔';
-            char symLeftDownAngle = '╚';
-            char symRightTopAngle = '╗';
-            char symRightDownAngle = '╝';
-            char symHor = '═';
-            char symVer = '║';
-
-            
-
-
 
             //задем размеры консоли (ширину и высоту)
             Console.WindowWidth = winWidth;
@@ -61,6 +46,10 @@ namespace ConsoleFileManager
             Console.BufferWidth = winWidth;
             Console.BufferHeight = winHeight;
 
+            int x1 = 1;
+            int x2 = 149;
+            int y1 = 1;
+            int y2 = 49;
             CreateFrame frame1 = new CreateFrame(x1, x2, y1, y2);
 
             frame1.CreatingFrameConsole(x1, x2, y1, y2);
@@ -89,6 +78,8 @@ namespace ConsoleFileManager
 
             Console.ReadKey();
             Console.Clear();
+
+
 
             //CreatingFrameConsole(x1, x2, y1, y2, symLeftTopAngle, symLeftDownAngle, symRightTopAngle, symRightDownAngle, symHor, symVer);
 
