@@ -1,6 +1,9 @@
 ﻿#region Namespaces
 using System;
 using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 
 #endregion
@@ -46,6 +49,7 @@ namespace ConsoleFileManager
             Console.BufferWidth = winWidth;
             Console.BufferHeight = winHeight;
 
+            #region Рамка
             int x1 = 1;
             int x2 = 149;
             int y1 = 1;
@@ -53,115 +57,173 @@ namespace ConsoleFileManager
             CreateFrame frame1 = new CreateFrame(x1, x2, y1, y2);
 
             frame1.CreatingFrameConsole(x1, x2, y1, y2);
-
-            Console.ReadKey();
-            Console.Clear();
-
-
-            x1 = 10;
-            x2 = 80;
-            y1 = 10;
-            y2 = 15;
+            x1 = 1;
+            x2 = 149;
+            y1 = 35;
+            y2 = 49;
             CreateFrame frame2 = new CreateFrame(x1, x2, y1, y2);
-
 
             frame2.CreatingFrameConsole(x1, x2, y1, y2);
 
-            x1 = 5;
-            x2 = 60;
-            y1 = 6;
-            y2 = 10;
-            CreateFrame frame3 = new CreateFrame(x1, x2, y1, y2);
+            #endregion //создаем рамку
 
 
-            frame3.CreatingFrameConsole(x1, x2, y1, y2);
+            Console.SetCursorPosition(2, 2);
 
-            Console.ReadKey();
-            Console.Clear();
+            string path = @"C:\Project";
+            int lenghString = 5; //длина строки
+            int numLines = 18; //максимальное колличество строк в столбце
+            char endChar = '░'; 
+            int columns = 3;
+            //char endChar2 = '▶';
+            
+
+            DirectoryInfo directory = new DirectoryInfo(path);
+
+            DirectoryInfo[] dirArray = directory.GetDirectories(); //массив объектов DirInfo который возвращает все каталоги в папке
+            FileInfo[] fileArray = directory.GetFiles(); //массив объектов FileInfo который возвращает все файлы в папке
+            
+
+            string[] arrayNameFileAndDirectories = new string[dirArray.Length+ fileArray.Length]; //создаем массив равный длинне FILE и DIRECTORY
+
+            //заполняем массив значениями из dirArray
+            for (int i = 0; i < dirArray.Length; i++)
+            {
+                arrayNameFileAndDirectories[i]= dirArray[i].Name;
+            }
+            int z = dirArray.Length;
+            //заполняем массив значениями из fileArray
+            for (int i = 0; i < fileArray.Length; i++)
+            {
+                arrayNameFileAndDirectories[z+i ] = fileArray[i].Name;
+            }
 
 
 
-            //CreatingFrameConsole(x1, x2, y1, y2, symLeftTopAngle, symLeftDownAngle, symRightTopAngle, symRightDownAngle, symHor, symVer);
+            //for (int i = 0; i < arrayNameFileAndDirectories.Length; i++) //вывод только по колличеству знаков указанному в lenghtString длиина строки 
+            //{
+            //    string fileName = arrayNameFileAndDirectories[i];
+            //    int n = fileName.Length;
 
-            //Console.ReadKey();
+            //    if (n < lenghString)
+            //    {
+            //        Console.WriteLine(fileName);
+            //    }
+            //    else
+            //    {
+            //        for (int k = 0; k < lenghString; k++)
+            //        {
+            //            Console.Write(fileName[k]);
+            //        }
 
-            //Console.Clear();
+            //        Console.WriteLine(endChar);
+            //        //Console.OutputEncoding = Encoding.Unicode; //с этим разобраться, не выводит ▶
+            //        //Console.WriteLine("\u16A4");
+            //    }
+            //}
 
-           
+            //foreach(string s in arrayNameFileAndDirectories)
+            //{
+            //    Console.WriteLine(s);
+            //}
 
-            //CreatingFrameConsole(x1, x2, y1, y2, symLeftTopAngle, symLeftDownAngle, symRightTopAngle, symRightDownAngle, symHor, symVer);
+            //for (int i = 0; i < fileInPathArray.Length; i++)
+            //{
+            //    string fileName = fileInPathArray[i].Name;
 
-            //Console.ReadKey();
+            //}
+
+            //foreach (DirectoryInfo directory1 in diArray)
+            //{
+            //    Console.WriteLine(directory1.Name);
+            //}
 
 
-            //DriveInfoClass();
 
-            //string dirName = @"C:\apache";
 
-            string path = @"C:\apache\Пожтехника_2014_v.5.rvt";
 
+
+            //foreach (FileInfo directory1 in FiArray)
+            //{
+            //    Console.WriteLine(directory1.Name);
+            //}
+
+            //DirectoryInfo[] diArray = directory.GetDirectories(); //массив объектов DirInfo который возвращает все каталоги в папке
+            //foreach (DirectoryInfo directory1 in diArray)
+            //{
+            //    Console.WriteLine(directory1.Name);
+            //}
+
+
+            //ListFolderinPath(path); //выводит список папок
+            //ListFilePath(path); //выводит список файлов
+
+
+
+
+
+
+
+            //DirectoryInfo dir = new DirectoryInfo(path).GetDirectories();
+
+            //string[] a = Directory.GetDirectories(path);
+            //foreach(string fn in a)
+            //{
+            //    Console.WriteLine(fn);
+            //}
+
+            //if (Directory.Exists(path))
+            //{
+            //    Console.WriteLine("Подкаталоги:");
+            //    string[] dirs = Directory.GetDirectories(path);
+            //    foreach (string s in dirs)
+            //    {
+            //        Console.WriteLine(s);
+            //    }
+            //    Console.WriteLine();
+            //    Console.WriteLine("Файлы:");
+            //    string[] files = Directory.GetFiles(path);
+            //    foreach (string s in files)
+            //    {
+            //        Console.WriteLine(s);
+            //    }
+            //}
+
+
+            //InfoAboutDirectory(path); //вывод информации о каталоге
             //GetInfoFile(path); // получение информации о файле
 
+            //GetFoldersAndFile(path);
 
-            //DeleteFileMethod(path); //удаление файла
+            Console.ReadKey();
 
-            //DeleteDirMethod(dirName); //удаление директории
 
-            /* string path = @"C:\Первая";
 
-             string dirName = "C:\\Первая";*/
 
-            /*
-            string oldFile = @"C:\First\hta.txt";
-            string newFile = @"C:\First\Second\hta.txt";
-            */
-
-            //CopyFileAndDirectories(); //копирование файлов и директорий
 
         }
 
-        private static void CreatingFrameConsole(int x1, int x2, int y1, int y2, char symLeftTopAngle, char symLeftDownAngle, char symRightTopAngle, char symRightDownAngle, char symHor, char symVer)
+        private static FileInfo[] ListFilePath(string path)
         {
-            //отрисовываем верхнюю рамку
-            Console.SetCursorPosition(x1, y1);
-            Console.Write(symLeftTopAngle);
-
-            HorizontalDrawMethod(x1,x2, symHor);
-
-            Console.Write(symRightTopAngle);
-
-            //отрисовываем нижнюю рамку
-            Console.SetCursorPosition(x1, y2);
-            Console.Write(symLeftDownAngle);
-
-            HorizontalDrawMethod(x1,x2, symHor);
-            Console.Write(symRightDownAngle);
-
-            //отрисовываем левую сторону рамки
-            Console.SetCursorPosition(x1, y1 + 1);
-
-            for (int i = 0; i < y2 - y1; i++)
+            DirectoryInfo directory = new DirectoryInfo(path);
+            FileInfo[] FiArray = directory.GetFiles(); //массив объектов FileInfo который возвращает все файлы в папке
+            foreach (FileInfo directory1 in FiArray)
             {
-                Console.Write(symVer );
-                Console.SetCursorPosition(x1 , y1 + 1 + i);
+                Console.WriteLine(directory1.Name);
             }
+            return FiArray;
 
-            //отрисовываем правую сторону рамки
-            Console.SetCursorPosition(x2 , y1 + 1);
-
-            for (int i = 0; i < y2-y1; i++)
-            {
-                Console.Write(symVer);
-                Console.SetCursorPosition(x2 , y1 + 1 + i);
-            }
         }
 
-        private static void HorizontalDrawMethod(int x1, int x2, char symHor)
+        private static DirectoryInfo[] ListFolderinPath(string path)
         {
-            for (int i = 0; i < x2 - x1-1; i++)
+            DirectoryInfo directory = new DirectoryInfo(path);
+            DirectoryInfo[] diArray = directory.GetDirectories(); //массив объектов DirInfo который возвращает все каталоги в папке
+            foreach (DirectoryInfo directory1 in diArray)
             {
-                Console.Write(symHor);
+                Console.WriteLine(directory1.Name);
             }
+            return diArray;
         }
 
         //CopyFileOldNewPath(oldFile, newFile); //копирование файла из одного места в другое
@@ -169,15 +231,45 @@ namespace ConsoleFileManager
         //DirInfo(dirName); //получение информации о каталоге
 
         //GetFoldersAndFile(path);
-        //InfoAboutDirectory(path); //вывод информации о каталоге
+        //CopyFileAndDirectories(); //копирование файлов и директорий
 
         // DriveInfoClass();//получение и вывод сведений обо всех дисках в системе
 
         // GetFolders(path);
 
+        /*  string dirName = "C:\\Первая";*/
+
+        /*
+        string oldFile = @"C:\First\hta.txt";
+        string newFile = @"C:\First\Second\hta.txt";
+        */
+
+
+        //CreatingFrameConsole(x1, x2, y1, y2, symLeftTopAngle, symLeftDownAngle, symRightTopAngle, symRightDownAngle, symHor, symVer);
+
+        //Console.ReadKey();
+
+        //Console.Clear();
 
 
 
+        //CreatingFrameConsole(x1, x2, y1, y2, symLeftTopAngle, symLeftDownAngle, symRightTopAngle, symRightDownAngle, symHor, symVer);
+
+        //Console.ReadKey();
+
+
+        //DriveInfoClass();
+
+        //string dirName = @"C:\apache";
+
+        //string path = @"C:\apache\Пожтехника_2014_v.5.rvt";
+
+
+
+
+        //DeleteFileMethod(path); //удаление файла
+
+        //DeleteDirMethod(dirName); //удаление директории
 
 
         private static void GetInfoFile(string path)
@@ -274,18 +366,29 @@ namespace ConsoleFileManager
             Console.WriteLine($"Корневой каталог: {dirInfo.Root}");
         }
 
+        private static void DirInfoGet(string path)
+        {
+            DirectoryInfo dirInfo = new DirectoryInfo(path);
+
+            Console.WriteLine($"Название каталога: {dirInfo.Name}");
+            Console.WriteLine($"Полное название каталога: {dirInfo.FullName}");
+            Console.WriteLine($"Время создания каталога: {dirInfo.CreationTime}");
+            Console.WriteLine($"Корневой каталог: {dirInfo.Root}");
+        }
+
         private static void GetFoldersAndFile(string path)
         {
             if (Directory.Exists(path)) //определяет существует ли данный каталог
             {
-                Console.WriteLine("Подкаталоги:");
+                //Console.WriteLine("Подкаталоги:");
                 string[] dirs = Directory.GetDirectories(path);
+                
                 foreach (string s in dirs)
                 {
                     Console.WriteLine(s); //перечисления папок
                 }
-                Console.WriteLine();
-                Console.WriteLine("Файлы:");
+                
+                //Console.WriteLine("Файлы:");
                 string[] files = Directory.GetFiles(path);
                 foreach (string s in files)
                 {
@@ -346,6 +449,52 @@ namespace ConsoleFileManager
         {
             
         }
+
+
+        private static void CreatingFrameConsole(int x1, int x2, int y1, int y2, char symLeftTopAngle, char symLeftDownAngle, char symRightTopAngle, char symRightDownAngle, char symHor, char symVer)
+        {
+            //отрисовываем верхнюю рамку
+            Console.SetCursorPosition(x1, y1);
+            Console.Write(symLeftTopAngle);
+
+            HorizontalDrawMethod(x1, x2, symHor);
+
+            Console.Write(symRightTopAngle);
+
+            //отрисовываем нижнюю рамку
+            Console.SetCursorPosition(x1, y2);
+            Console.Write(symLeftDownAngle);
+
+            HorizontalDrawMethod(x1, x2, symHor);
+            Console.Write(symRightDownAngle);
+
+            //отрисовываем левую сторону рамки
+            Console.SetCursorPosition(x1, y1 + 1);
+
+            for (int i = 0; i < y2 - y1; i++)
+            {
+                Console.Write(symVer);
+                Console.SetCursorPosition(x1, y1 + 1 + i);
+            }
+
+            //отрисовываем правую сторону рамки
+            Console.SetCursorPosition(x2, y1 + 1);
+
+            for (int i = 0; i < y2 - y1; i++)
+            {
+                Console.Write(symVer);
+                Console.SetCursorPosition(x2, y1 + 1 + i);
+            }
+        }
+
+        private static void HorizontalDrawMethod(int x1, int x2, char symHor)
+        {
+            for (int i = 0; i < x2 - x1 - 1; i++)
+            {
+                Console.Write(symHor);
+            }
+        }
+
     }
-    
+
 }
