@@ -33,7 +33,7 @@ namespace ConsoleFileManager
     {
         static void Main(string[] args)
         {
-
+#region Рамка
             Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.BackgroundColor = ConsoleColor.White;
 
@@ -49,7 +49,7 @@ namespace ConsoleFileManager
             Console.BufferWidth = winWidth;
             Console.BufferHeight = winHeight;
 
-            #region Рамка
+            
             int x1 = 1;
             int x2 = 149;
             int y1 = 1;
@@ -67,22 +67,34 @@ namespace ConsoleFileManager
 
             #endregion //создаем рамку
 
-
             Console.SetCursorPosition(2, 2);
 
-            string path = @"C:\Project";
-            int lenghString = 5; //длина строки
-            int numLines = 18; //максимальное колличество строк в столбце
+            string path = @"C:\apache";
+            int a = 3; //расстояние между колонками
+            int lenghString = 10; //длина строки
+            int numLines = 10; //максимальное колличество строк в столбце
             char endChar = '░'; 
-            int columns = 3;
+            int columns = 3; // колличество столбцов
+
+            int maxCountStrings = columns * numLines; //максимальное колличество строк которое можно вывести на страницу
             //char endChar2 = '▶';
-            
+
+            //добавление времени на консоль
+            DataHourandMinClass dataHourandMin = new DataHourandMinClass();
+            dataHourandMin.DrawTime();
+
+            //добавление пути на верх рамки
+            TextOnTopFrame textOnTopFrame = new TextOnTopFrame(8, 1, path);
+            textOnTopFrame.DrawText();
+            TextOnTopFrame textOnTopFrame2 = new TextOnTopFrame(8, 35, "тут тоже что-то будет");
+            textOnTopFrame2.DrawText();
 
             DirectoryInfo directory = new DirectoryInfo(path);
 
             DirectoryInfo[] dirArray = directory.GetDirectories(); //массив объектов DirInfo который возвращает все каталоги в папке
             FileInfo[] fileArray = directory.GetFiles(); //массив объектов FileInfo который возвращает все файлы в папке
-            
+
+            List<String> arrays2 = new List<String>();
 
             string[] arrayNameFileAndDirectories = new string[dirArray.Length+ fileArray.Length]; //создаем массив равный длинне FILE и DIRECTORY
 
@@ -90,15 +102,97 @@ namespace ConsoleFileManager
             for (int i = 0; i < dirArray.Length; i++)
             {
                 arrayNameFileAndDirectories[i]= dirArray[i].Name;
+                arrays2.Add(dirArray[i].Name);
             }
-            int z = dirArray.Length;
-            //заполняем массив значениями из fileArray
+
+            int z = dirArray.Length; 
+
+            //заполняем массив класса Array значениями из fileArray
             for (int i = 0; i < fileArray.Length; i++)
             {
-                arrayNameFileAndDirectories[z+i ] = fileArray[i].Name;
+                arrayNameFileAndDirectories[z+i] = fileArray[i].Name;
+                arrays2.Add(fileArray[i].Name);
             }
 
+            int nPage = 4; //номер страницы для вывода
 
+            for (int j = 1; j < 5; j++) //выводим массив данных с разбивкой на столбцы
+            {
+                nPage = j;
+                for (int i = (nPage - 1) * numLines; i < numLines * nPage; i++)
+                {
+                    int g = 0;
+
+                    while (i < arrays2.Count && i < numLines * nPage)
+                    {
+
+                        Console.SetCursorPosition((a * nPage + lenghString * (nPage - 1)), 2 + g);
+                        Console.WriteLine(arrays2[i]);
+                        g++;
+                        i++;
+                    }
+
+                }
+            }
+            //вычисляем колличество страниц которое понадобится для отображения данных
+            //decimal countPage = Math.Ceiling(Convert.ToDecimal(lenghtArray) / maxCountStrings);
+
+
+            //Console.WriteLine(arrays2[3]);
+
+            //int lenghtArray = arrayNameFileAndDirectories.Length; //длина массива данных 
+
+            //Array arraySource = Array.CreateInstance(typeof(String), lenghtArray);
+
+            //for (int i = 0; i < lenghtArray; i++)
+            //{
+            //    arraySource.SetValue(arrayNameFileAndDirectories[i], i);
+            //}
+
+            //Console.SetCursorPosition(5 , 5);
+
+            //Console.WriteLine(arraySource.GetValue(1));
+
+
+
+
+
+            // //колличество массивов на которое мы разобъем наш главный массив
+            // int nMas = Convert.ToInt32((Math.Ceiling(Convert.ToDecimal(lenghtArray) / Convert.ToDecimal(numLines))));
+
+            // //создаем массив класса ConteinerClass равный колличеству страниц для вывода всей информации
+            // ConteinerClass[] conteinerArray = new ConteinerClass[nMas];
+
+            // Array myObjArray = Array.CreateInstance(typeof(string), numLines);
+
+
+
+
+            //Array.Copy(arraySource, 0, myObjArray,  0, numLines);
+
+            // List<Array> arrays = new List<Array>();
+            // arrays.Add(myObjArray);
+
+            //Array.Copy(arraySource, 3, arrayTarget, 0, 5);
+
+            //for (int i = 0; i < Convert.ToInt32(countPage); i++)
+            //{
+            //    conteinerArray[i] = new ConteinerClass((colLen + (colLen + lenghString) * (i + 1)), 2, lenghString, i, arraySource, 1);
+            //}
+            //conteinerArray[1].DrawContainer();         
+            //conteinerArray[2].DrawContainer();
+            //conteinerArray[3].DrawContainer();
+
+            //string[] masMas = new string[nMas];
+
+            //for (int i = 0; i < nMas; i++)
+            //{
+            //    masMas[i] = arrayNameFileAndDirectories[1];
+            //}
+
+            //ConteinerClass conteiner1 = new ConteinerClass(5,5,10,1, arrayNameFileAndDirectories);
+
+            //conteiner1.DrawContainer();
 
             //for (int i = 0; i < arrayNameFileAndDirectories.Length; i++) //вывод только по колличеству знаков указанному в lenghtString длиина строки 
             //{
@@ -122,7 +216,7 @@ namespace ConsoleFileManager
             //    }
             //}
 
-            //foreach(string s in arrayNameFileAndDirectories)
+            //foreach (string s in arrayNameFileAndDirectories)
             //{
             //    Console.WriteLine(s);
             //}
@@ -138,11 +232,6 @@ namespace ConsoleFileManager
             //    Console.WriteLine(directory1.Name);
             //}
 
-
-
-
-
-
             //foreach (FileInfo directory1 in FiArray)
             //{
             //    Console.WriteLine(directory1.Name);
@@ -157,12 +246,6 @@ namespace ConsoleFileManager
 
             //ListFolderinPath(path); //выводит список папок
             //ListFilePath(path); //выводит список файлов
-
-
-
-
-
-
 
             //DirectoryInfo dir = new DirectoryInfo(path).GetDirectories();
 
@@ -196,10 +279,6 @@ namespace ConsoleFileManager
             //GetFoldersAndFile(path);
 
             Console.ReadKey();
-
-
-
-
 
         }
 
