@@ -71,9 +71,9 @@ namespace ConsoleFileManager
 
             string path = @"C:\apache";
             int a = 3; //расстояние между колонками
-            int lenghString = 10; //длина строки
-            int numLines = 10; //максимальное колличество строк в столбце
-            char endChar = '░'; 
+            int lenghString = 12; //длина строки вывода данных
+            int numLines = 30; //максимальное колличество строк в столбце
+            string endChar = "░"; 
             int columns = 3; // колличество столбцов
 
             int maxCountStrings = columns * numLines; //максимальное колличество строк которое можно вывести на страницу
@@ -114,7 +114,7 @@ namespace ConsoleFileManager
                 arrays2.Add(fileArray[i].Name);
             }
 
-            int nPage = 4; //номер страницы для вывода
+            int nPage; //номер страницы для вывода
 
             for (int j = 1; j < 5; j++) //выводим массив данных с разбивкой на столбцы
             {
@@ -127,7 +127,7 @@ namespace ConsoleFileManager
                     {
 
                         Console.SetCursorPosition((a * nPage + lenghString * (nPage - 1)), 2 + g);
-                        Console.WriteLine(arrays2[i]);
+                        Console.WriteLine(ShordData(arrays2[i], lenghString, endChar));
                         g++;
                         i++;
                     }
@@ -135,10 +135,11 @@ namespace ConsoleFileManager
                 }
             }
             //вычисляем колличество страниц которое понадобится для отображения данных
-            //decimal countPage = Math.Ceiling(Convert.ToDecimal(lenghtArray) / maxCountStrings);
+            decimal countPage = Math.Ceiling(Convert.ToDecimal(arrays2.Count) / maxCountStrings);
+
+            
 
 
-            //Console.WriteLine(arrays2[3]);
 
             //int lenghtArray = arrayNameFileAndDirectories.Length; //длина массива данных 
 
@@ -194,27 +195,7 @@ namespace ConsoleFileManager
 
             //conteiner1.DrawContainer();
 
-            //for (int i = 0; i < arrayNameFileAndDirectories.Length; i++) //вывод только по колличеству знаков указанному в lenghtString длиина строки 
-            //{
-            //    string fileName = arrayNameFileAndDirectories[i];
-            //    int n = fileName.Length;
 
-            //    if (n < lenghString)
-            //    {
-            //        Console.WriteLine(fileName);
-            //    }
-            //    else
-            //    {
-            //        for (int k = 0; k < lenghString; k++)
-            //        {
-            //            Console.Write(fileName[k]);
-            //        }
-
-            //        Console.WriteLine(endChar);
-            //        //Console.OutputEncoding = Encoding.Unicode; //с этим разобраться, не выводит ▶
-            //        //Console.WriteLine("\u16A4");
-            //    }
-            //}
 
             //foreach (string s in arrayNameFileAndDirectories)
             //{
@@ -279,6 +260,21 @@ namespace ConsoleFileManager
             //GetFoldersAndFile(path);
 
             Console.ReadKey();
+
+        }
+
+        public static string ShordData(string s, int lenghString, string endChar)//вывод только по колличеству знаков указанному в lenghtString длиина строки 
+        {
+            if (s.Length < lenghString)
+            {
+                return s;
+            }
+            else
+            {
+                return (s.Remove(lenghString-1) + endChar);
+                //Console.OutputEncoding = Encoding.Unicode; //с этим разобраться, не выводит ▶
+                //Console.WriteLine("\u16A4");
+            }
 
         }
 
