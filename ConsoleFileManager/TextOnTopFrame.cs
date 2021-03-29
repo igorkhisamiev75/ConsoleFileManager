@@ -18,10 +18,13 @@ namespace ConsoleFileManager
 
         public void DrawText()
         {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.SetCursorPosition(x, y);
-            
-                Console.WriteLine(text);
-                
+            Console.WriteLine(text);
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.BackgroundColor = ConsoleColor.White;
+
         }
     }
 }
